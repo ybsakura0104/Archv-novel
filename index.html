@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>내게 있던 것?</title>
+    <link rel="icon" type="image/png" href="./skin/intro.gif"/>
+    <link rel="stylesheet" href="./skin/css/style.css">
+    <script src="./skin/js/script.js"></script>
+</head>
+<body>
+    <!-- 중앙에 갇힌 프레임 역할을 하는 wrap[cite: 23] -->
+    <div id="wrap">
+        <nav>
+            <div id="profile">
+                <img src="./skin/profile.jpg">
+                <h3 class="glow-text" style="font-size: 1.3rem; margin-top: 10px;">구름</h3>
+                <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">:: 기록 ::</p>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="./pages/home.html" target="frame" class="button">홈</a>
+                <a href="./pages/review.html" target="frame" class="button">리뷰</a>
+                <a href="./pages/invite.html" target="frame" class="button">방명록</a>
+            </div>
+
+            <!-- BGM 컨트롤러[cite: 23] -->
+            <div id="bgmBtn">
+                <input type="hidden" id="bgmStatus" value="">
+                <button onclick="bgm('play')">▸</button>
+                <button onclick="bgm('stop')">■</button>
+                <div id="bgm"></div>
+            </div>
+        </nav>
+
+        <!-- 우측 페이지 전환 영역[cite: 23] -->
+        <iframe src="./pages/home.html" name="frame" frameborder="0"></iframe>
+    </div>
+</body>
+</html>

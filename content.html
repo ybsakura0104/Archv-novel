@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="./skin/css/style.css">
+<script src="./skin/js/script.js"></script>
+<nav>
+    <div id="profile">
+        <img src="https://pbs.twimg.com/media/Gjvqv3IbgAAX6sM?format=jpg&name=medium">
+        <h3>구름</h3>
+        <h4>:: 기록 ::</h4>
+        <p>내게 있던 것?<br>오직 사랑이지.</p>
+    </div>
+    <a href="./pages/home.html" target="frame" class="button">홈</a>
+    <a href="./pages/review.html" target="frame" class="button">리뷰</a>
+    <a href="./pages/extract.html" target="frame" class="button">발췌</a>
+    <a href="./pages/music.html" target="frame" class="button">노래</a>
+    <a href="./pages/invite.html" target="frame" class="button">방명록</a>
+    <a href="./pages/invite2.html" target="frame" class="button">트위터</a>
+    <div id="bgmBtn">
+        <input type="hidden" id="bgmStatus" value="">
+        <div id="bgmVisual"></div>
+        <button class="play" onclick="bgm('play');">&#9654;</button>
+        <button class="stop" onclick="bgm('stop');">&#9632;</button>
+        <div id="bgm"></div>
+        <script>window.addEventListener('load', bgm('play'));</script>
+    </div>
+</nav>
+<iframe src="./pages/home.html" name="frame" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+
