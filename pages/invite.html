@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<link rel="stylesheet" href="../skin/css/style.css">
+<link rel="stylesheet" href="./skin/css/custom.css">
+
+    <body>
+        <div class="page-container">
+            <div class="guest-form glass">
+                <h2 class="glow-text" style="margin-bottom: 20px;">방명록</h2>
+                <input type="text" id="guest-name" class="guest-input" placeholder="성함">
+                <textarea id="guest-content" class="guest-input" placeholder="메시지를 남겨주세요." rows="4"></textarea>
+                <button id="guest-submit">작성하기</button>
+            </div>
+
+            <div id="guest-list">
+                <!-- Firebase js 스크립트 ----------------------------------------------->
+                <script type="module">
+
+                    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+                    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+                    import {
+                        query,
+                        orderBy,
+                        getFirestore,
+                        collection,
+                        getDocs,
+                        addDoc,
+                    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyBz5bSp_tiFg4tvL2vTNUVw0COqWPgJ51Q",
+                        authDomain: "invite-12bf1.firebaseapp.com",
+                        projectId: "invite-12bf1",
+                        storageBucket: "invite-12bf1.appspot.com",
+                        messagingSenderId: "653190521647",
+                        appId: "1:653190521647:web:e862a51c20d4264d5577da",
+                        measurementId: "G-PEEWKRT1PR"
+                    };
+                
+                    const app = initializeApp(firebaseConfig);
+                    const analytics = getAnalytics(app);
+
+                    const db = getFirestore(app); // Firestore 실행
+                    const guestRef = collection(db, "guests"); // 'guests' 컬렉션 불러오기
+                    const q = query(guestRef, orderBy("created_at", "desc")); // 불러온 방명록 전체 목록을 최신순(작성일시 내림차순)으로 정렬
+            //---------------------------------------------------------------------//
+                    // 방명록 작성 기능
+                    async function sendGuest() {
+                    // 사용자가 입력한 데이터 받아오기
+                    const name = await document.querySelector("#guest-name").value;
+                    const content = await document.querySelector("#guest-content").value;
+
+                    // Firestore에 데이터 전송
+                    await addDoc(guestRef, {
+                        name: name,
+                        content: content,
+                        created_at: new Date(),
+                    });
+                    
+                    // 입력란 초기화
+                    document.querySelector("#guest-name").value = "";
+                    document.querySelector("#guest-content").value = "";
+                    }
+
+                    // '작성' 버튼에 위 함수 연결
+                    document.querySelector("#guest-submit").addEventListener("click", () => {
+                        sendGuest();
+                        getGuestList();
+                    });
+                    getGuestList();
+
+                    // 방명록 전체 목록 표시 기능
+                    async function getGuestList() {
+                        // 방명록 전체 목록의 HTML 코드
+                        let html = `<ul>`;
+
+                        // Firestore에서 최신순으로 정렬된 목록 받아오기
+                        const guestList = await getDocs(q);
+
+                        // 화면에 출력
+                        guestList.forEach((data) => {
+                            // 날짜 형식 변환
+                            const date = new Date(data.data().created_at.toDate());
+                            const myDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}:${date.getMinutes()}`;
+
+                            // 개별 방명록의 HTML 코드를 전체 목록 HTML 코드에 추가
+                            html += `
+                            <div class="guest-item glass">
+                                <div class="guest-name">${data.data().name}</div>
+                                <p class="guest-text">${data.data().content}</p>
+                                <span class="guest-date">${myDate}</span>
+                            </div>
+                            `;
+                        });
+
+                        html += `</ul>`;
+
+                        // 방명록 전체 목록을 실제로 화면에 표시
+                        document.querySelector("#guest-list").innerHTML = html;
+                    }
+                </script>
+            <!------------------------------------------------------------------------->
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+

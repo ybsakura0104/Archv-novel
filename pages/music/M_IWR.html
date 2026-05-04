@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="./../../skin/css/style.css">
+<link rel="stylesheet" href="../skin/css/custom.css">
+<script src="../../skin/js/script.js"></script>
+
+
+<div class="page-container">
+    <!-- [1] 상단 고정 플레이어 영역[cite: 31] -->
+    <div class="player-fixed-section glass">
+        <div class="cd-player">
+            <!-- 초기값 설정[cite: 8] -->
+            <div id="current-cd" class="cd-disk" style="background-image: url(https://img.ridicdn.net/cover/2655001154/xxlarge?dpi=xxhdpi#1);"></div>
+        </div>
+        <div class="music-info">
+            <h2 id="display-title" class="glow-text">곡을 선택해주세요</h2>
+            <p id="display-sentence">"목록에서 노래를 클릭하면 정보가 나타납니다."</p>
+            <div class="music-controls">
+                <button id="btn-stop" onclick="stopMusic()">■ 정지</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- [2] 하단 재생목록 영역[cite: 31] -->
+    <div class="playlist-container glass">
+        <!-- 클릭 시 경로 문제 방지를 위해 이미지 경로도 상대경로로 수정 권장 -->
+        <div class="playlist-item" onclick="changeMusic('GfRwuw-lie0', 'Hiver', 'Daumy', '나보고 영웅이 되라고?', 'https\://img.ridicdn.net/cover/2655001154/xxlarge?dpi=xxhdpi#1')">
+            <span class="track-title">Hiver</span>
+            <span class="track-artist">Daumy</span>
+        </div>
+    </div>
+        <!-- 추가 곡들을 같은 양식으로 배치하세요 -->
+    </div>
+</div>
+
+<!-- 보이지 않는 플레이어 영역[cite: 25] -->
+<div id="music-player-container"></div>
